@@ -205,32 +205,37 @@ export default function WizardPage() {
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase tracking-wide">
                   Műfaj Kiválasztása *
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
-                    { id: "fantasy", label: "Fantasy", icon: Sparkles },
-                    { id: "thriller", label: "Thriller", icon: Layers },
-                    { id: "romance", label: "Romance", icon: Palette },
-                    { id: "scifi", label: "Sci-Fi", icon: Globe },
-                    { id: "horror", label: "Horror", icon: ShieldAlert },
-                    { id: "crime", label: "Krimi / Bűnügyi", icon: BookOpen },
-                    { id: "adventure", label: "Kaland", icon: Globe },
-                    { id: "erotica_adult", label: "🔞 Pornó / Erotika (18+)", icon: Flame, adult: true },
-                    { id: "horror_erotica_adult", label: "🩸 Horror-pornó (18+)", icon: Flame, adult: true },
+                    { id: "fantasy", label: "Fantasy", icon: Sparkles, color: "bg-purple-900 border-purple-500" },
+                    { id: "thriller", label: "Thriller", icon: Layers, color: "bg-amber-900 border-amber-500" },
+                    { id: "romance", label: "Romance", icon: Palette, color: "bg-pink-900 border-pink-500" },
+                    { id: "scifi", label: "Sci-Fi", icon: Globe, color: "bg-cyan-900 border-cyan-500" },
+                    { id: "horror", label: "Horror", icon: ShieldAlert, color: "bg-orange-950 border-orange-600" },
+                    { id: "crime", label: "Krimi / Bűnügyi", icon: BookOpen, color: "bg-blue-900 border-blue-500" },
+                    { id: "adventure", label: "Kaland", icon: Globe, color: "bg-emerald-900 border-emerald-500" },
+                    { id: "erotica_adult", label: "🔞 Pornó / Erotika (18+)", icon: Flame, adult: true, color: "bg-rose-950 border-rose-600" },
+                    { id: "horror_erotica_adult", label: "🩸 Horror-pornó (18+)", icon: Flame, adult: true, color: "bg-red-950 border-red-600" },
                   ].map((g) => (
                     <button
                       key={g.id}
                       type="button"
                       onClick={() => handleGenreChange(g.id as Genre)}
-                      className={`p-3 rounded-xl border text-left text-xs font-semibold flex items-center gap-2.5 transition-all ${
+                      className={`metro-tile p-4 border-2 text-left font-black flex flex-col justify-between h-28 transition-all ${
                         formData.genre === g.id
-                          ? g.adult
-                            ? "bg-red-950/80 border-red-500 text-red-200 ring-1 ring-red-500"
-                            : "bg-purple-950/80 border-purple-500 text-purple-200 ring-1 ring-purple-500"
-                          : "bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+                          ? `${g.color} text-white ring-2 ring-white/50`
+                          : "bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-white"
                       }`}
                     >
-                      <g.icon className={`w-4 h-4 ${g.adult ? "text-red-400" : "text-purple-400"}`} />
-                      <span>{g.label}</span>
+                      <div className="flex justify-between items-start">
+                        <g.icon className={`w-6 h-6 ${g.adult ? "text-red-400 animate-pulse" : "text-purple-400"}`} />
+                        {formData.genre === g.id && (
+                          <span className="text-[10px] uppercase font-black px-2 py-0.5 bg-black/40 text-white">
+                            Kiválasztva ✓
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-sm uppercase tracking-tight">{g.label}</span>
                     </button>
                   ))}
                 </div>
